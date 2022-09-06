@@ -4,6 +4,9 @@
 #include "SCharacter.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "GameFramework/Pawn.h"
+
+
 
 
 // Sets default values
@@ -34,10 +37,17 @@ void ASCharacter::Tick(float DeltaTime)
 
 }
 
+void ASCharacter::MoveForward(float value)
+{
+	AddMovementInput(GetActorForwardVector(),value);
+}
+
 // Called to bind functionality to input
 void ASCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+	PlayerInputComponent->BindAxis("MoveForward", this, &ASCharacter::MoveForward);
+	PlayerInputComponent->BindAxis("Turn", this, &APawn::AddControllerYawInput);
 }
 
