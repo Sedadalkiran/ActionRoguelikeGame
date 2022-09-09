@@ -29,11 +29,14 @@ protected:
 	UPROPERTY(EditAnywhere)
 	USpringArmComponent* SpringArmComp;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere,Category="Attack")
 	TSubclassOf<AActor> ProjectileClass;
 
 	UPROPERTY(EditAnywhere)
 	UInteractionComponent* InteractionComp;
+
+	UPROPERTY(EditAnywhere,Category="Attack")
+	UAnimMontage* AttackAnim;
 
 public:	
 	// Called every frame
