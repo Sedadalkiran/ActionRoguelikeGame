@@ -51,7 +51,7 @@ void UInteractionComponent::PrimaryInteract()
 	FHitResult Hit;
 
 	
-	GetWorld()->LineTraceSingleByObjectType(Hit,EyeLocation,End,ObjectQueryParams);
+	bool bHitResult=GetWorld()->LineTraceSingleByObjectType(Hit,EyeLocation,End,ObjectQueryParams);
 	AActor* HitActor=Hit.GetActor();
 
 	if(HitActor)
@@ -62,6 +62,9 @@ void UInteractionComponent::PrimaryInteract()
 			ISGameplayInterface::Execute_Interact(HitActor,MyPawn);
 		}
 	}
-	DrawDebugLine(GetWorld(),EyeLocation,End,FColor::Red,false,2.0f,0,2.0f);
+	FColor LineColor;
+	LineColor=bHitResult?FColor::Green:FColor::Red;
+	
+	DrawDebugLine(GetWorld(),EyeLocation,End,LineColor,false,2.0f,0,2.0f);
 }
 
