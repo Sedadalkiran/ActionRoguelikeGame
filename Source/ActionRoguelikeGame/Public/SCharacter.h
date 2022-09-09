@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "InteractionComponent.h"
 #include "GameFramework/Character.h"
 #include "SCharacter.generated.h"
 
@@ -28,12 +29,20 @@ protected:
 	UPROPERTY(EditAnywhere)
 	USpringArmComponent* SpringArmComp;
 
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<AActor> ProjectileClass;
+
+	UPROPERTY(EditAnywhere)
+	UInteractionComponent* InteractionComp;
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	void MoveForward(float value);
 	void MoveRight(float value);
+	void PrimaryAttack();
+	void PrimaryInteract();
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
