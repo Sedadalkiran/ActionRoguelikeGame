@@ -23,6 +23,8 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	FTimerHandle TimerHandle_PrimaryAttack;
+
 	UPROPERTY(EditAnywhere)
 	UCameraComponent* CameraComp;
 
@@ -37,6 +39,10 @@ protected:
 
 	UPROPERTY(EditAnywhere,Category="Attack")
 	UAnimMontage* AttackAnim;
+
+	//FUNCTIONS
+
+	void PrimaryAttack_TimeElapsed();
 
 public:	
 	// Called every frame

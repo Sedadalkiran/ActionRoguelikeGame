@@ -33,6 +33,8 @@ void ASCharacter::BeginPlay()
 	Super::BeginPlay();
 }
 
+
+
 // Called every frame
 void ASCharacter::Tick(float DeltaTime)
 {
@@ -56,15 +58,20 @@ void ASCharacter::MoveRight(float value)
 	FVector RightVector = FRotationMatrix(ControlRot).GetScaledAxis(EAxis::Y);
 	AddMovementInput(RightVector, value);
 }
-
-void ASCharacter::PrimaryAttack()
+void ASCharacter::PrimaryAttack_TimeElapsed()
 {
-	PlayAnimMontage(AttackAnim);
+	
 	FVector HandLocation = GetMesh()->GetSocketLocation("Muzzle_01");
 	FTransform SpawnTM = FTransform(GetControlRotation(), HandLocation);
 	FActorSpawnParameters SpawnParams;
 	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 	GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams);
+}
+void ASCharacter::PrimaryAttack()
+{
+	PlayAnimMontage(AttackAnim);
+	GetWorldTimerManager().SetTimer(TimerHandle_PrimaryAttack,this,&ASCharacter::PrimaryAttack_TimeElapsed,0.2f);
+	
 }
 
 void ASCharacter::PrimaryInteract()
